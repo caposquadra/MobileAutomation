@@ -1,6 +1,7 @@
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -63,17 +64,14 @@ public class Ex6 {
         );
 
         assertElementPresent(
-                By.id("org.wikipedia:id/view_page_title_text"),
-                "There is no an article title element on the page",
-                0
+                By.id("org.wikipedia:id/view_page_title_text")
         );
     }
 
-    private WebElement assertElementPresent(By by, String error_message, long timeOutInSeconds){
-        WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
-        wait.withMessage(by.toString()+ error_message);
-        return wait.until(ExpectedConditions.presenceOfElementLocated(by));
-    }
+    private void assertElementPresent (By by) {
+        WebElement element = driver.findElement(by);
+        Assert.assertTrue("There is no an article title element on the page", element != null);
+        }
 
     private WebElement waitForElementPresent(By by, String error_message, long timeOutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, timeOutInSeconds);
@@ -94,4 +92,7 @@ public class Ex6 {
         element.sendKeys(value);
         return element;
     }
+
+
+
 }
